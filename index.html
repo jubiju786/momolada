@@ -114,23 +114,78 @@
     }
 
     .dog1 {
-      background-image: url('https://i.imgur.com/hOjpMIc.jpeg');
+      background-image: url('https://images.unsplash.com/photo-1581304127955-cce1f6e7b9c0');
       top: 20%;
       animation-duration: 12s;
     }
 
     .dog2 {
-      background-image: url('https://i.imgur.com/hfT6LKt.jpeg');
+      background-image: url('https://images.unsplash.com/photo-1606101707101-0a5b4479e8bc');
       top: 50%;
       animation-duration: 15s;
     }
 
     .dog3 {
-      background-image: url('https://i.imgur.com/pu3RPCR.jpeg');
+      background-image: url('https://images.unsplash.com/photo-1569699755-49c7bcb4a052');
       top: 70%;
       animation-duration: 18s;
     }
 
+    /* Estilo do botão de "Sim" e "Não" */
+    .question-container {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #fff;
+      display: none;
+    }
+
+    .question-container h2 {
+      font-size: 2em;
+    }
+
+    .question-button {
+      background-color: #ff4b5c;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.3s;
+    }
+
+    .question-button:focus {
+      outline: none;
+    }
+
+    .question-button.no {
+      background-color: #ff4747;
+    }
+
+    .question-button.yes {
+      background-color: #4CAF50;
+    }
+
+    /* Estilo de animação de fogos de artifício */
+    .fireworks {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(255, 0, 0, 0.7) 60%);
+      border-radius: 50%;
+      animation: explode 1s forwards;
+    }
+
+    @keyframes explode {
+      0% { width: 0; height: 0; }
+      100% { width: 200px; height: 200px; opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -150,13 +205,20 @@
     </div>
   </div>
 
-  <!-- Texto "Mexe o mouse!!" no canto superior esquerdo -->
+  <!-- Caixa de texto "Mexe o mouse!!" no canto superior esquerdo -->
   <div class="mouse-instruction">Mexe o mouse!!</div>
 
   <!-- Cachorrinhos correndo -->
   <div class="dog dog1"></div>
   <div class="dog dog2"></div>
   <div class="dog dog3"></div>
+
+  <!-- Pergunta "Você me ama?" -->
+  <div class="question-container" id="question">
+    <h2>Você me ama?</h2>
+    <button class="question-button yes" onclick="handleYes()">Sim</button>
+    <button class="question-button no" onclick="handleNo()">Não</button>
+  </div>
 
   <script>
     const startDate = new Date('2025-03-10T00:00:00');
@@ -215,6 +277,41 @@
       const player = document.getElementById('player');
       player.style.display = player.style.display === 'none' ? 'block' : 'none';
     }
+
+    function showQuestion() {
+      document.getElementById('question').style.display = 'block';
+    }
+
+    function handleYes() {
+      // Exibe fogos de artifício
+      createFireworks();
+      alert("Eu também te amo, Ester! 💖");
+      document.getElementById('question').style.display = 'none'; // Esconde a pergunta
+    }
+
+    function handleNo() {
+      // Animação do botão "Não"
+      const noButton = document.querySelector('.question-button.no');
+      const yesButton = document.querySelector('.question-button.yes');
+      noButton.style.transform = 'scale(0.8)';
+      yesButton.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        noButton.style.transform = 'scale(1)';
+        yesButton.style.transform = 'scale(1)';
+      }, 200); // Restaura o tamanho após a animação
+    }
+
+    function createFireworks() {
+      for (let i = 0; i < 5; i++) {
+        const fireworks = document.createElement('div');
+        fireworks.className = 'fireworks';
+        document.body.appendChild(fireworks);
+        setTimeout(() => fireworks.remove(), 1000); // Remove após animação
+      }
+    }
+
+    // Mostrar a pergunta após um tempo
+    setTimeout(showQuestion, 3000); // Exibe a pergunta após 3 segundos
   </script>
 </body>
 </html>
