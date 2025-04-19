@@ -121,11 +121,12 @@
 
     const emojis = ['💖', '🥰', '💫', '💋', '💞', '💘', '💕', '😘', '🌹', '😍', '✨'];
 
-    function createEmoji() {
+    function createEmoji(x, y) {
       const emoji = document.createElement('div');
       emoji.className = 'emoji';
       emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.left = x + 'px';
+      emoji.style.top = y + 'px';
       emoji.style.animationDuration = (3 + Math.random() * 5) + 's';
       document.body.appendChild(emoji);
 
@@ -134,7 +135,9 @@
       }, 8000);
     }
 
-    setInterval(createEmoji, 500);
+    document.addEventListener('mousemove', (event) => {
+      createEmoji(event.pageX, event.pageY);
+    });
 
     function togglePlayer() {
       const player = document.getElementById('player');
