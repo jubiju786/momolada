@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eu & Você ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff4b5c;
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+
+    .frase {
+      font-size: 1.5em;
+      margin: 10px;
+      color: #ff4b5c;
+      text-align: center;
+    }
+
+    .timer {
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0; }
+      to { transform: translateY(-10vh); opacity: 1; }
+    }
+
+    .music-container {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: 10;
+      border: 2px solid #ff4b5c;
+      border-radius: 10px;
+      background: #111;
+      padding: 5px;
+    }
+
+    .toggle-button {
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+
+    .music-player {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Eu & Você ❤️</h1>
+  <div class="frase">Você é o meu lugar favorito no mundo 🥹</div>
+  <div class="frase">Nada faz sentido sem você 💕</div>
+  <div class="frase">Te amo mais a cada dia 😘</div>
+
+  <div class="timer" id="timer"></div>
+
+  <div class="music-container">
+    <button class="toggle-button" onclick="togglePlayer()">🎵 Música</button>
+    <div class="music-player" id="player">
+      <iframe width="300" height="80" src="https://www.youtube.com/embed/nyuo9-OjNNg?autoplay=0&controls=1" 
+        title="Wanna Be Yours - Arctic Monkeys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date('2024-03-10T00:00:00');
+    const timerEl = document.getElementById('timer');
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = now - startDate;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      timerEl.innerHTML = `Estamos juntos há ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos 💖`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Emojis flutuantes
+    const emojis = ['❤️', '😘', '💕'];
+
+    function createEmoji() {
+      const emoji = document.createElement('div');
+      emoji.className = 'emoji';
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.animationDuration = (3 + Math.random() * 5) + 's';
+      document.body.appendChild(emoji);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 8000);
+    }
+
+    setInterval(createEmoji, 500);
+
+    // Player toggle
+    function togglePlayer() {
+      const player = document.getElementById('player');
+      player.style.display = player.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
