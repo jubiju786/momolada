@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eu & Você ❤️</title>
+  <title>Ester e Julio ❤️</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #000;
-      color: #fff;
+      background: url('/mnt/data/Polish_20250321_151643274.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: rgba(0, 0, 0, 0.6);
+      background-blend-mode: darken;
+      color: #ffffff;
       font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
@@ -17,18 +20,20 @@
       justify-content: center;
       height: 100vh;
       overflow: hidden;
+      text-shadow: 1px 1px 4px #000;
     }
 
     h1 {
-      color: #ff4b5c;
-      font-size: 3em;
+      color: #ffe3e3;
+      font-size: 2.5em;
       margin-bottom: 0.2em;
+      text-align: center;
     }
 
     .frase {
       font-size: 1.5em;
       margin: 10px;
-      color: #ff4b5c;
+      color: #ffe3e3;
       text-align: center;
     }
 
@@ -42,7 +47,8 @@
       position: absolute;
       font-size: 2em;
       animation: floatUp linear infinite;
-      opacity: 0.8;
+      opacity: 0.9;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -57,7 +63,7 @@
       z-index: 10;
       border: 2px solid #ff4b5c;
       border-radius: 10px;
-      background: #111;
+      background: rgba(0, 0, 0, 0.7);
       padding: 5px;
     }
 
@@ -78,8 +84,8 @@
   </style>
 </head>
 <body>
-  <h1>Eu & Você ❤️</h1>
-  <div class="frase">Você é o meu lugar favorito no mundo 🥹</div>
+  <h1>Ester e Julio, unidos para todo sempre 💘</h1>
+  <div class="frase">Você é o meu lugar favorito no mundo 🥰</div>
   <div class="frase">Nada faz sentido sem você 💕</div>
   <div class="frase">Te amo mais a cada dia 😘</div>
 
@@ -95,7 +101,7 @@
   </div>
 
   <script>
-    const startDate = new Date('2024-03-10T00:00:00');
+    const startDate = new Date('2025-03-10T00:00:00');
     const timerEl = document.getElementById('timer');
 
     function updateTimer() {
@@ -113,8 +119,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Emojis flutuantes
-    const emojis = ['❤️', '😘', '💕'];
+    const emojis = ['💖', '🥰', '💫', '💋', '💞', '💘', '💕', '😘', '🌹', '😍', '✨'];
 
     function createEmoji() {
       const emoji = document.createElement('div');
@@ -131,7 +136,6 @@
 
     setInterval(createEmoji, 500);
 
-    // Player toggle
     function togglePlayer() {
       const player = document.getElementById('player');
       player.style.display = player.style.display === 'none' ? 'block' : 'none';
