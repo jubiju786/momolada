@@ -14,13 +14,16 @@
       background-blend-mode: darken;
       color: #ffffff;
       font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .main-content {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      overflow: auto;
-      text-shadow: 1px 1px 4px #000;
     }
 
     h1 {
@@ -97,9 +100,7 @@
       padding: 10px;
       border-radius: 5px;
       font-weight: bold;
-      cursor: default;
       z-index: 10;
-      text-shadow: 1px 1px 4px #000;
     }
 
     .dog {
@@ -120,7 +121,6 @@
     .dog2 { background-image: url('https://images.unsplash.com/photo-1606101707101-0a5b4479e8bc'); top: 50%; animation-duration: 15s; }
     .dog3 { background-image: url('https://images.unsplash.com/photo-1569699755-49c7bcb4a052'); top: 70%; animation-duration: 18s; }
 
-    /* Botão para mostrar pergunta */
     #goto-question {
       position: fixed;
       top: 20px;
@@ -136,7 +136,6 @@
       text-shadow: 1px 1px 4px #000;
     }
 
-    /* Container da pergunta */
     #question-container {
       display: none;
       position: fixed;
@@ -179,12 +178,13 @@
   </style>
 </head>
 <body>
-  <h1>Ester e Julio, unidos para todo sempre 💘</h1>
-  <div class="frase">Você é o meu lugar favorito no mundo 🥰</div>
-  <div class="frase">Nada faz sentido sem você 💕</div>
-  <div class="frase">Te amo mais a cada dia 😘</div>
-
-  <div class="timer" id="timer"></div>
+  <div class="main-content">
+    <h1>Ester e Julio, unidos para todo sempre 💘</h1>
+    <div class="frase">Você é o meu lugar favorito no mundo 🥰</div>
+    <div class="frase">Nada faz sentido sem você 💕</div>
+    <div class="frase">Te amo mais a cada dia 😘</div>
+    <div class="timer" id="timer"></div>
+  </div>
 
   <div class="music-container">
     <button class="toggle-button" onclick="togglePlayer()">🎵 Música</button>
@@ -193,7 +193,7 @@
     </div>
   </div>
 
-  <div class="mouse-instruction">Mexe o mouse!!</div>
+  <div class="mouse-instruction" id="mouse-instruction">Mexe o mouse!!</div>
 
   <div class="dog dog1"></div>
   <div class="dog dog2"></div>
@@ -217,8 +217,7 @@
       const now = new Date();
       const diff = now - startDate;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 *
-60)) % 24);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
       timerEl.innerHTML = `Estamos juntos há ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos 💖`;
@@ -226,9 +225,11 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Emojis flutuantes
+    // Emoji flutuantes com cooldown
+    let emojiEnabled = true;
     const emojis = ['💖','🥰','💫','💋','💞','💘','💕','😘','🌹','😍','✨'];
     function createEmoji(x, y) {
+      if (!emojiEnabled) return;
       const emoji = document.createElement('div');
       emoji.className = 'emoji';
       emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
@@ -240,6 +241,7 @@
     }
     document.addEventListener('mousemove', e => createEmoji(e.pageX, e.pageY));
     document.addEventListener('touchstart', e => {
+      if (!emojiEnabled) return;
       e.preventDefault();
       const touch = e.changedTouches[0];
       for (let i = 0; i < 10; i++) {
@@ -261,18 +263,26 @@
     const qContainer = document.getElementById('question-container');
     const yesBtn = document.getElementById('yes-button');
     const noBtn = document.getElementById('no-button');
-    let noCount = 0;
     gotoBtn.addEventListener('click', () => {
       qContainer.style.display = 'flex';
+      emojiEnabled = false; // desabilita emojis
     });
     yesBtn.addEventListener('click', () => {
       createFireworks();
       qContainer.style.display = 'none';
+      // mostra mensagem de amor
+      const loveMsg = document.createElement('div');
+      loveMsg.className = 'frase';
+      loveMsg.innerText = 'Eu também te amo momoh!!';
+      document.querySelector('.main-content').appendChild(loveMsg);
+      // reativa emojis após 3s
+      setTimeout(() => { emojiEnabled = true; }, 3000);
     });
     noBtn.addEventListener('click', () => {
-      noCount++;
-      noBtn.style.transform = `scale(${Math.max(0.5, 1 - noCount*0.1)})`;
-      yesBtn.style.transform = `scale(${1 + noCount*0.1})`;
+      noCount = (window.noCount || 0) + 1;
+      window.noCount = noCount;
+      noBtn.style.transform = `scale(${Math.max(0.5, 1 - noCount * 0.1)})`;
+      yesBtn.style.transform = `scale(${1 + noCount * 0.1})`;
     });
 
     function createFireworks() {
