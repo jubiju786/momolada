@@ -81,6 +81,55 @@
     .music-player {
       display: none;
     }
+
+    .mouse-instruction {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.2em;
+      color: #ff4b5c;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    /* Animação de cachorrinhos */
+    .dog {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+      animation: run 10s linear infinite;
+    }
+
+    @keyframes run {
+      0% { transform: translateX(-100px); }
+      50% { transform: translateX(100vw); }
+      100% { transform: translateX(-100px); }
+    }
+
+    .dog1 {
+      background-image: url('https://i.imgur.com/0xXfmvM.jpg');
+      top: 20%;
+      animation-duration: 12s;
+    }
+
+    .dog2 {
+      background-image: url('https://i.imgur.com/8vEZ5Lm.png');
+      top: 50%;
+      animation-duration: 15s;
+    }
+
+    .dog3 {
+      background-image: url('https://i.imgur.com/DoWLK6R.png');
+      top: 70%;
+      animation-duration: 18s;
+    }
+
   </style>
 </head>
 <body>
@@ -99,6 +148,14 @@
       </iframe>
     </div>
   </div>
+
+  <!-- Texto "Mexe o mouse!!" no canto -->
+  <div class="mouse-instruction">Mexe o mouse!!</div>
+
+  <!-- Cachorrinhos correndo -->
+  <div class="dog dog1"></div>
+  <div class="dog dog2"></div>
+  <div class="dog dog3"></div>
 
   <script>
     const startDate = new Date('2025-03-10T00:00:00');
