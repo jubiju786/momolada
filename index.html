@@ -135,8 +135,22 @@
       }, 8000);
     }
 
+    // Para o movimento do mouse
     document.addEventListener('mousemove', (event) => {
       createEmoji(event.pageX, event.pageY);
+    });
+
+    // Para o toque na tela (mobile)
+    document.addEventListener('touchstart', (event) => {
+      event.preventDefault(); // Impede o comportamento padrão do toque
+      const touchX = event.changedTouches[0].pageX;
+      const touchY = event.changedTouches[0].pageY;
+
+      for (let i = 0; i < 10; i++) { // Cria múltiplos emojis para uma explosão
+        setTimeout(() => {
+          createEmoji(touchX + (Math.random() - 0.5) * 200, touchY + (Math.random() - 0.5) * 200);
+        }, i * 100); // Espaça a criação dos emojis para criar a "explosão"
+      }
     });
 
     function togglePlayer() {
